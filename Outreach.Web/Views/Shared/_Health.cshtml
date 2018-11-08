@@ -1,0 +1,13 @@
+﻿@model Outreach.Entities.ViewModels.ServiceUserViewModel.ServiceUserMenuVM
+
+<div>
+
+   <p>@Model.UserMenu.Description</p>
+   <h2>History of medical Appointments</h2>
+   
+    @{ 
+        Html.RenderAction("MedicalAppointment", "ServiceUser", new { Id = Model.User.Id });
+    }
+       
+  
+</div>

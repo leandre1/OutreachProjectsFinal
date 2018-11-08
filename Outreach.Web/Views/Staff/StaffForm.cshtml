@@ -1,0 +1,38 @@
+﻿@model Outreach.Entities.StaffFormViewModel.StaffFormViewModel
+
+@using (Html.BeginForm("Save", "Staff"))
+{
+    
+        @Html.ValidationSummary(true, "Please fix the following errors!")
+    
+    
+   <div class="form-group">
+       @Html.LabelFor(m => m.Staff.FirstName)
+       @Html.TextBoxFor(m => m.Staff.FirstName,new { @class="form-control"})
+       @Html.ValidationMessageFor(m => m.Staff.FirstName)
+   </div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Staff.LastName)
+    @Html.TextBoxFor(m => m.Staff.LastName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Staff.LastName)
+</div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Staff.DateOfRegistration)
+        @Html.TextBoxFor(m => m.Staff.DateOfRegistration, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Staff.DateOfRegistration)
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Staff.BirthDate)
+        @Html.TextBoxFor(m => m.Staff.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Staff.BirthDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Staff.CategoryId)
+        @Html.DropDownListFor(n => n.Staff.CategoryId, new SelectList(Model.Categories, "CategoryId", "Category"),"Select Category",new { @class="form-control"})
+        @Html.ValidationMessageFor(m => m.Staff.CategoryId)
+    </div>
+    @Html.HiddenFor(m => m.Staff.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

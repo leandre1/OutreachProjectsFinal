@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Outreach.Entities.ViewModels.MedicalAppointmentViewModel.MedicalAppointmentVM>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Date Of Appointment
+            </th>
+            <th>
+                Reason
+            </th>
+            <th>
+                Doctor Name
+            </th>
+            <th>
+                Health Center
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                PostCode
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>
+                    @m.MedicalAppointments.AppointmentDate
+                </td>
+                <td>
+                    @m.MedicalAppointments.Reason
+                </td>
+                <td>
+                    @m.doctor.FirstName  @m.doctor.Lastname
+                </td>
+                <td>
+                    @m.HealthCenter.City
+                </td>
+                <td>
+                    @m.HealthCenter.HealthCenterName
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

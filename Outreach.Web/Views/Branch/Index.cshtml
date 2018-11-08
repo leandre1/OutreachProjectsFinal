@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Outreach.Entities.HouseBranchViewModel.HouseBranchViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Branches</h2>
+<a href="@Url.Action("NewBranch","Branch")" class="btn btn-primary">Add a branch</a>
+<table id="branch" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Houses</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var b in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@b.Branch.Name,"Edit","Branch",new { id = @b.Branch.Id},null)</td>
+                <td>@b.Branch.Location</td>
+                <td>@b.House.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#branch").DataTable();
+        });
+    </script>
+
+}
+

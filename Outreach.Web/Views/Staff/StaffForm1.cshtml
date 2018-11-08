@@ -1,0 +1,108 @@
+﻿@model dynamic
+<h2> New Staff Form</h2>
+<form id="staffForm">
+    <div class="form-group">
+       <label>
+           FirstName:
+        </label>
+        <input type="text" value="" class="form-control" />
+        
+    </div>
+    <div class="form-group">
+        <label>
+            LastName:
+        </label>
+        <input type="text" value="" class="form-control" />
+
+    </div>
+    <div class="form-group">
+        <label>
+            Date of Registration:
+        </label>
+        <input type="text" value="" class="form-control" />
+
+    </div>
+    <div class="form-group">
+        <label>
+            Date of Birth:
+        </label>
+        <input type="text" value="" class="form-control" />
+    </div>
+   
+    <div class="form-group">
+        <label>
+            Category:
+        </label>
+        <input id="category"type="text" value="" class="form-control" />
+    </div>
+    <div id="details" class="row"></div>
+    <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+</form>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#btnSave').click(function () {
+
+            })
+            //$('#category').typeahead({
+                
+            //    minLength: 1,
+            //    highlight: true,
+            //    hint:true
+            //}, {
+            //    displayKey: 'Category',
+            //    source: function (query, process) {
+            //        var categories = [];
+            //        map = {};
+            //        return $.get('/Staff/GetCategories', { query: query }, function (data) {
+            //            $.each(data, function (i, category) {
+            //                map[category.category] = category;
+            //                categories.push(category);
+            //            });
+            //            process(categories);
+            //        });
+            //    },
+            //    updater: function (item) {
+            //        var selectedcategory = map[item].CategoryId;
+            //        $("#details").text("Selected : " + selectedcategory);
+            //        return item;
+            //    }
+            //});
+
+            var cats = function(){
+                $.ajax({        
+                    type: 'GET',        
+                    url: @Url.Action("GetCategories","Staff", new { }),
+                    dataType: 'json',  
+                    traditional: true,     
+                    success: function (data) {            
+                        results = data;
+                    },        
+                    error: function (data) {
+                        alert('Error.');
+                    }
+                })
+            }
+            // constructs the suggestion engine
+            var categories = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace('category'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                // `states` is an array of state names defined in "The Basics"
+                local: $.map(categoryList,function(item){
+                    return{category:item};
+                })
+
+            $('#category').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'category',
+                source: categories
+            });
+        });
+
+    </script>
+    }
+

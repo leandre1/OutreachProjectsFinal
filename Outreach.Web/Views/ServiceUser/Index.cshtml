@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Outreach.Entities.DTO.ServiceUserDto.ServiceUserIndexDto>
+
+<h1>List of Services users</h1>
+<a href="@Url.Action("NewServiceUser","ServiceUser")" class="btn btn-primary">Add a service user</a>
+<table id="user" class="table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Birthdate</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            BindDataTable();
+            //GetServiceUserData();
+        })
+        @*var GetServiceUserData = function () {
+            $.ajax({
+                url: "@Url.Action("GetServiceUserData","ServiceUser")",
+                type: "Get",
+                dataType:"JSON",
+                success: function (response) {
+                    BindDataTable(response);
+                }
+            })*@
+            var BindDataTable = function (response) {
+                $("#user").DataTable({
+                    "bServerSide": true,
+                    "sAjaxSource": "@Url.Action("GetServiceUserData", "ServiceUser")",
+
+                    "fnServerData": function(sSource,aoData,fnCallback){
+
+                        $.ajax({
+                            url: sSource,
+                            data:aoData,
+                            type: "Get",
+                            dataType:"JSON",
+                            success: fnCallback
+                        })
+                    },
+                    //"aaData": response,
+                    "aoColumns": [
+
+                        {
+                            "mData": "FirstName",
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/ServiceUser/ShowProfile/' + full.Id + '">'+ full.FirstName + '</a>';
+                            }
+                        },
+                        { "mData": "LastName" },
+                        {
+                            "mData": "BirthDate",
+                            "render": function (data, type, full, meta) {
+                                return ToJavaScriptDate(data);
+                            }
+                        },
+                    ]
+                })
+            }
+
+            var ToJavaScriptDate = function ToJavaScriptDate(value) {
+                var pattern = /Date\(([^)]+)\)/;
+                var results = pattern.exec(value);
+                var dt = new Date(parseFloat(results[1]));
+                return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+            }
+        
+    </script>
+
+}

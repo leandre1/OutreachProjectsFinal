@@ -1,0 +1,72 @@
+﻿@model Outreach.Entities.ViewModels.ServiceUserFormViewModel.ServiceUserFormVM
+   @*@{ 
+       Layout = "~/Views/Shared/_Layout.cshtml";
+        }*@
+<h1>Add a Service User</h1>
+@using (Html.BeginForm("Save", "ServiceUser", FormMethod.Post))
+{
+    @Html.ValidationSummary(true,"Please fix the following Errors!")
+    <div class="form-group">
+        @Html.LabelFor(m => m.ServiceUser.FirstName)
+        @Html.TextBoxFor(m => m.ServiceUser.FirstName,new { @class="form-control"})
+        @Html.ValidationMessageFor(m =>m.ServiceUser.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ServiceUser.LastName)
+        @Html.TextBoxFor(m => m.ServiceUser.LastName, new {@class="form-control"})
+        @Html.ValidationMessageFor(m => m.ServiceUser.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ServiceUser.BirthDate)
+        @Html.TextBoxFor(m => Model.ServiceUser.BirthDate, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ServiceUser.BirthDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.staff.Id, new { @class="control-label"})
+        @Html.HiddenFor(m => m.ServiceUser.StaffId,new { @Id = "Id" })
+        @Html.TextBoxFor(m => Model.staff.Id, new { @class = "form-control",@Id="staffId" })
+        
+        @Html.ValidationMessageFor(m => m.staff.FirstName)
+        </div>
+       
+       @Html.HiddenFor(m => m.ServiceUser.Id)
+    @Html.HiddenFor(m => m.ServiceUser.ImageUrl)
+    @Html.HiddenFor(m => m.ServiceUser.DoctorId)
+    <button type="submit" class="btn btn-primary">Save</button>
+
+
+}
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            var thisElement = $(this);
+            $('#staffId').autocomplete({
+                source: function (request, response) {
+                    
+                    $.ajax({
+                        url: '@Url.Action("Populate","ServiceUser")',
+                        datatype: "json",
+                        data: { id: request.term},
+                        success: function (data) {
+                            response($.map(data, function (val, item) {
+ 
+                                return {
+                                    label: val.Name,
+                                    value: val.Name,
+                                    Id: val.Id
+                                }
+                            }))
+                        }
+                    })
+                },
+                select: function (event, ui) {
+                    $('#Id').val(ui.item.Id);
+                }
+
+            });
+
+
+        });
+    </script>
+}

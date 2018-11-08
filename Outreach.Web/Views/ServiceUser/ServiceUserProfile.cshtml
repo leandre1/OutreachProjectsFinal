@@ -1,0 +1,53 @@
+﻿@model Outreach.Entities.ViewModels.ServiceUserViewModel.ServiceUserProfileViewModel.ServiceUserProfileVM
+
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Service User Profile</h1>
+
+<div class="panel panel-body">
+
+    <div class="col-md-9">
+        <h2>@Model.User.FirstName @Model.User.LastName</h2>
+        <hr />
+
+        <ul class="list-group" id="navlist">
+
+            @foreach (var menu in Model.Menus)
+            {
+               
+                    <li id="lg-item" class="list-group-item">@Ajax.ActionLink(@menu.Name,"DisplayMenuContent","ServiceUser", new { id = menu.Id},
+                                                new AjaxOptions {
+                                                    UpdateTargetId="result",
+                                                    InsertionMode = InsertionMode.Replace,
+                                                    HttpMethod = "Get"
+                                                })</li>
+            }
+        </ul>
+
+        <div id="result">
+
+        </div>
+    </div>
+   
+    <div class="col-md-3" id="side">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                
+               <h2 class="panel-title">Service User</h2>
+                
+            </div>
+            <div class="panel-body">
+                <img src="@Model.User.ImageUrl" class="img-responsive" />
+                <h3>Contact</h3>
+                <ul>
+                    <li class="glyphicon glyphicon-phone">@Model.Branch.PhoneNumber</li>
+                    <li class="glyphicon glyphicon-home"> Branch: @Model.Branch.Name</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,98 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: #5E4485;
+    color: #FFF;
+    padding: 1% 0;
+    font-size: 1.2em;
+    border: 0;
+}
+
+.navbar-brand {
+    float: left;
+    min-height: 55px;
+    padding: 0 15px 5px;
+}
+/*Styling Profile page menu*/
+#navlist {
+    /*margin: 0;*/
+    padding: 0 0 20px 10px;
+    border-bottom: 1px solid #000;
+}
+
+    #navlist ul, #navlist li {
+        display: inline;
+        list-style-type: none;
+    }
+
+    #navlist a:link, #navlist a:visited {
+        float: left;
+        line-height: 14px;
+        font-weight: bold;
+        margin: 0 10px 4px 10px;
+        text-decoration: none;
+        color: #999;
+    }
+
+        #navlist a:link#current, #navlist a:visited#current, #navlist a:hover {
+            border-bottom: 4px solid #000;
+            padding-bottom: 2px;
+            background: transparent;
+            color: #000;
+        }
+
+#lg-item {
+    border: none;
+}
+
+hr {
+    border-bottom: 3px solid #000;
+}
+
+#navlist a:hover {
+    color: #000;
+}
+
+.item img {
+    width: 100%;
+}
+
+.field-validation-error {
+    color: red !important;
+}
+
+.input-validation-error {
+    border: solid 2px red;
+}
+
+footer {
+    width: 100%;
+    background-color: #5E4485;
+    color: #fff;
+    padding: 3%;
+}

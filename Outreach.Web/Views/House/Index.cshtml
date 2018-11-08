@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Outreach.Entities.HouseBranchViewModel.HouseBranchViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Houses and Branches</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Branch</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var b in Model)
+           {
+           <tr>
+               <td>@b.House.Description</td>
+               <td>@b.Branch.Name</td>
+               <td>@b.Branch.Location</td>
+           </tr> 
+        }
+    </tbody>
+</table>
